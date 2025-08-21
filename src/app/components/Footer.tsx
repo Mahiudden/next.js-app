@@ -70,9 +70,9 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact</h3>
             <ul className="space-y-2 text-gray-400">
-              <li>Email: info@ecommerce.com</li>
+              <li>Email: mahiuddenmd@gmail.com</li>
               <li>Phone: +1 (555) 123-4567</li>
-              <li>Address: 123 Commerce St, City, State</li>
+              <li>Address: Dhaka, Bangladesh</li>
             </ul>
           </div>
         </div>
