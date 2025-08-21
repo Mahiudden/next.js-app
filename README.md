@@ -8,7 +8,7 @@ A full-stack e-commerce application built with Next.js 15, featuring authenticat
 - **Authentication**: NextAuth.js with Google OAuth and credentials login
 - **Protected Routes**: Dashboard for adding new products (requires login)
 - **Responsive Design**: Modern UI built with Tailwind CSS
-- **Database**: Prisma ORM with SQLite (easily switchable to PostgreSQL/MySQL)
+- **Database**: MongoDB with Mongoose ODM
 - **Real-time Updates**: Toast notifications and loading states
 - **Type Safety**: Full TypeScript support
 
@@ -17,7 +17,7 @@ A full-stack e-commerce application built with Next.js 15, featuring authenticat
 - **Frontend**: Next.js 15 (App Router), React 18, TypeScript
 - **Styling**: Tailwind CSS
 - **Authentication**: NextAuth.js
-- **Database**: Prisma ORM + SQLite
+- **Database**: MongoDB + Mongoose
 - **Icons**: Lucide React
 - **Notifications**: React Hot Toast
 
@@ -48,8 +48,8 @@ src/
 ├── lib/
 │   ├── auth.ts                             # NextAuth configuration
 │   └── db.ts                               # Database configuration
-└── prisma/
-    └── schema.prisma                       # Database schema
+└── scripts/
+    └── seed-mongo.js                       # MongoDB seed script
 ```
 
 ## 🚀 Getting Started
@@ -84,13 +84,14 @@ src/
    NEXTAUTH_SECRET=your-secret-key-here
    GOOGLE_CLIENT_ID=your-google-client-id
    GOOGLE_CLIENT_SECRET=your-google-client-secret
-   DATABASE_URL=file:./dev.db
+   MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/dbname?retryWrites=true&w=majority
+   MONGODB_DB=ecommerce
    ```
 
 4. **Set up the database**
    ```bash
-   npx prisma generate
-   npx prisma db push
+   # Seed MongoDB with sample data
+   npm run seed
    ```
 
 5. **Run the development server**
@@ -160,12 +161,11 @@ For development, you can create a user directly in the database or modify the au
 ### Database Changes
 
 ```bash
-# After modifying schema.prisma
-npx prisma generate
-npx prisma db push
+# Update MongoDB schema in models
+# No migrations needed - MongoDB is schema-less
 
-# For production migrations
-npx prisma migrate dev --name <migration-name>
+# Re-seed database if needed
+npm run seed
 ```
 
 ### Adding New Features
@@ -173,15 +173,15 @@ npx prisma migrate dev --name <migration-name>
 1. Create new API routes in `src/app/api/`
 2. Add new pages in `src/app/`
 3. Create reusable components in `src/app/components/`
-4. Update Prisma schema if needed
+4. Update MongoDB models if needed
 
 ## 🐛 Troubleshooting
 
 ### Common Issues
 
 1. **Database connection errors**
-   - Ensure `.env.local` has correct `DATABASE_URL`
-   - Run `npx prisma generate` after schema changes
+   - Ensure `.env.local` has correct `MONGODB_URI`
+   - Check MongoDB connection string format
 
 2. **Authentication not working**
    - Check Google OAuth credentials
